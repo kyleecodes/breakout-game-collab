@@ -42,7 +42,7 @@ all_sprites_list = pygame.sprite.Group()
 
 # Load images, sounds, and music
 menu_background = pygame.image.load("starmenu.jpg")     # Background image for menu
-menu_music = "Cocoon.wav"                               # Music for menu
+menu_music = "Cocoon.mp3"                               # Music for menu
 game_music = "GenerousPalmstroke.wav"                   # Music for in-game
 brick_sound = pygame.mixer.Sound('sounds/brick.wav')    # Sound for brick hits
 paddle_sound = pygame.mixer.Sound('sounds/paddle.wav')  # Sound for ball hitting paddle
