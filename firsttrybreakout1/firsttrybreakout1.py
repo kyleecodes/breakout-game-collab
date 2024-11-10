@@ -1,7 +1,8 @@
-import pygame
+import random
 import sys
 import time
-import random
+
+import pygame
 
 # initialize pyGame and mixer for music
 pygame.init()
@@ -41,12 +42,13 @@ paddle_height = 20
 all_sprites_list = pygame.sprite.Group()
 
 # Load images, sounds, and music
-menu_background = pygame.image.load("starmenu.jpg")     # Background image for menu
-menu_music = "Cocoon.mp3"                               # Music for menu
-game_music = "GenerousPalmstroke.wav"                   # Music for in-game
-brick_sound = pygame.mixer.Sound('sounds/brick.wav')    # Sound for brick hits
-paddle_sound = pygame.mixer.Sound('sounds/paddle.wav')  # Sound for ball hitting paddle
-wall_sound = pygame.mixer.Sound('sounds/wall.wav')      # Sound for ball hitting walls
+menu_background = pygame.image.load("starmenu.jpg")  # Background image for menu
+menu_music = "Cocoon.mp3"  # Music for menu
+game_music = "GenerousPalmstroke.wav"  # Music for in-game
+brick_sound = pygame.mixer.Sound("sounds/brick.wav")  # Sound for brick hits
+paddle_sound = pygame.mixer.Sound("sounds/paddle.wav")  # Sound for ball hitting paddle
+wall_sound = pygame.mixer.Sound("sounds/wall.wav")  # Sound for ball hitting walls
+
 
 # Brick class to create and draw bricks
 class Brick(pygame.sprite.Sprite):
@@ -56,6 +58,7 @@ class Brick(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         pygame.draw.rect(self.image, color, [0, 0, width, height])
         self.rect = self.image.get_rect()
+
 
 # Paddle class to create and control paddle
 class Paddle(pygame.sprite.Sprite):
@@ -76,15 +79,20 @@ class Paddle(pygame.sprite.Sprite):
         if self.rect.x < wall_width:
             self.rect.x = wall_width
 
+
 # Ball class to create and control ball
 class Ball(pygame.sprite.Sprite):
 
     def __init__(self, color, width, height):
         super().__init__()
-        self.image = pygame.Surface([width, height])    # Create a rectangular surface for the ball
-        pygame.draw.rect(self.image, color, [0, 0, width, height])  # Draw the ball with the specified color
-        self.rect = self.image.get_rect()   # Get the rectangular boundary of the ball
-        self.velocity = [velocity, velocity]    # Set the initial velocity of the ball
+        self.image = pygame.Surface(
+            [width, height]
+        )  # Create a rectangular surface for the ball
+        pygame.draw.rect(
+            self.image, color, [0, 0, width, height]
+        )  # Draw the ball with the specified color
+        self.rect = self.image.get_rect()  # Get the rectangular boundary of the ball
+        self.velocity = [velocity, velocity]  # Set the initial velocity of the ball
 
     def update(self):
 
@@ -98,14 +106,15 @@ class Ball(pygame.sprite.Sprite):
         self.velocity[0] = self.velocity[0]
         self.velocity[1] = -self.velocity[1]
 
+
 # Create paddle and ball objects
 paddle = Paddle(BLUE, paddle_width, paddle_height)
 paddle.rect.x = WIDTH // 2 - paddle_width // 2  # Center the paddle horizontally
-paddle.rect.y = HEIGHT - 65     # Position the paddle near the bottom
+paddle.rect.y = HEIGHT - 65  # Position the paddle near the bottom
 
 ball = Ball(WHITE, 10, 10)
-ball.rect.x = WIDTH // 2 - 5    # Center the ball horizontally
-ball.rect.y = HEIGHT // 2 - 5   # Center the ball vertically
+ball.rect.x = WIDTH // 2 - 5  # Center the ball horizontally
+ball.rect.y = HEIGHT // 2 - 5  # Center the ball vertically
 
 all_bricks = pygame.sprite.Group()  # Create a group to store all bricks
 
@@ -115,6 +124,7 @@ brick_height = 16
 x_gap = 7
 y_gap = 5
 wall_width = 16
+
 
 # Function to create bricks in the game
 def bricks():
@@ -129,7 +139,12 @@ def bricks():
                     all_bricks.add(brick)
                 else:
                     brick = Brick(PINK, brick_width, brick_height)
-                    brick.rect.x = wall_width + brick_width + x_gap + (i - 1) * (brick_width + x_gap)
+                    brick.rect.x = (
+                        wall_width
+                        + brick_width
+                        + x_gap
+                        + (i - 1) * (brick_width + x_gap)
+                    )
                     brick.rect.y = 215 + j * (y_gap + brick_height)
                     all_sprites_list.add(brick)
                     all_bricks.add(brick)
@@ -142,7 +157,12 @@ def bricks():
                     all_bricks.add(brick)
                 else:
                     brick = Brick(ORANGE, brick_width, brick_height)
-                    brick.rect.x = wall_width + brick_width + x_gap + (i - 1) * (brick_width + x_gap)
+                    brick.rect.x = (
+                        wall_width
+                        + brick_width
+                        + x_gap
+                        + (i - 1) * (brick_width + x_gap)
+                    )
                     brick.rect.y = 215 + j * (y_gap + brick_height)
                     all_sprites_list.add(brick)
                     all_bricks.add(brick)
@@ -155,7 +175,12 @@ def bricks():
                     all_bricks.add(brick)
                 else:
                     brick = Brick(CYAN, brick_width, brick_height)
-                    brick.rect.x = wall_width + brick_width + x_gap + (i - 1) * (brick_width + x_gap)
+                    brick.rect.x = (
+                        wall_width
+                        + brick_width
+                        + x_gap
+                        + (i - 1) * (brick_width + x_gap)
+                    )
                     brick.rect.y = 215 + j * (y_gap + brick_height)
                     all_sprites_list.add(brick)
                     all_bricks.add(brick)
@@ -168,17 +193,23 @@ def bricks():
                     all_bricks.add(brick)
                 else:
                     brick = Brick(YELLOW, brick_width, brick_height)
-                    brick.rect.x = wall_width + brick_width + x_gap + (i - 1) * (brick_width + x_gap)
+                    brick.rect.x = (
+                        wall_width
+                        + brick_width
+                        + x_gap
+                        + (i - 1) * (brick_width + x_gap)
+                    )
                     brick.rect.y = 215 + j * (y_gap + brick_height)
                     all_sprites_list.add(brick)
                     all_bricks.add(brick)
 
 
-brick_wall = bricks()       # Initialize bricks layout
+brick_wall = bricks()  # Initialize bricks layout
 
 # Add paddle and ball to the sprite group
 all_sprites_list.add(paddle)
 all_sprites_list.add(ball)
+
 
 # Function to display text
 def draw_text(text, font, color, surface, x, y):
@@ -186,7 +217,9 @@ def draw_text(text, font, color, surface, x, y):
     text_rect = text_obj.get_rect(center=(x, y))
     surface.blit(text_obj, text_rect)
 
+
 font = pygame.font.Font(None, 36)
+
 
 # Main Menu
 def main_menu():
@@ -195,15 +228,17 @@ def main_menu():
     while True:
 
         # Draw background image to fill the screen
-        screen.blit(menu_background, (75,0))
+        screen.blit(menu_background, (75, 0))
 
         # Draw menu text
-        draw_text("Another Breakout Game Menu", font, CYAN, screen, WIDTH // 2, HEIGHT // 4)
+        draw_text(
+            "Another Breakout Game Menu", font, CYAN, screen, WIDTH // 2, HEIGHT // 4
+        )
         draw_text("1. Start Game", font, WHITE, screen, WIDTH // 2, HEIGHT // 2 - 20)
         draw_text("2. Quit", font, WHITE, screen, WIDTH // 2, HEIGHT // 2 + 20)
 
         pygame.display.flip()
-        
+
         # Event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -219,7 +254,8 @@ def main_menu():
                     pygame.quit()
                     sys.exit()
 
-#The game/physics
+
+# The game/physics
 def main(score, balls):
 
     # Play game music in a loop
@@ -247,7 +283,7 @@ def main(score, balls):
         if ball.rect.y < 40:
             ball.velocity[1] = -ball.velocity[1]
             wall_sound.play()
-        
+
         # Ball collision with right boundary
         if ball.rect.x >= WIDTH - wall_width - 10:
             ball.velocity[0] = -ball.velocity[0]
@@ -264,7 +300,7 @@ def main(score, balls):
             ball.velocity[1] = ball.velocity[1]
             balls += 1
             if balls == 4:
-                font = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 70)
+                font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
                 text = font.render("GAME OVER", 1, WHITE)
                 text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
                 screen.blit(text, text_rect)
@@ -301,7 +337,7 @@ def main(score, balls):
                 score += 7
                 brick.kill()
             if len(all_bricks) == 0:
-                font = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 70)
+                font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
                 text = font.render("SCREEN CLEARED", 1, WHITE)
                 text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
                 all_sprites_list.add(ball)
@@ -315,32 +351,107 @@ def main(score, balls):
         screen.fill(BLACK)
 
         pygame.draw.line(screen, GREY, [0, 19], [WIDTH, 19], 40)
-        pygame.draw.line(screen, GREY, [(wall_width / 2) - 1, 0], [(wall_width / 2) - 1, HEIGHT], wall_width)
-        pygame.draw.line(screen, GREY, [(WIDTH - wall_width / 2) - 1, 0], [(WIDTH - wall_width / 2) - 1, HEIGHT], wall_width)
+        pygame.draw.line(
+            screen,
+            GREY,
+            [(wall_width / 2) - 1, 0],
+            [(wall_width / 2) - 1, HEIGHT],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            GREY,
+            [(WIDTH - wall_width / 2) - 1, 0],
+            [(WIDTH - wall_width / 2) - 1, HEIGHT],
+            wall_width,
+        )
 
-        pygame.draw.line(screen, BLUE, [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
-        pygame.draw.line(screen, BLUE, [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2], [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54], wall_width)
+        pygame.draw.line(
+            screen,
+            BLUE,
+            [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2],
+            [(wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            BLUE,
+            [(WIDTH - wall_width / 2) - 1, HEIGHT - 65 + paddle_height / 2 - 54 / 2],
+            [
+                (WIDTH - wall_width / 2) - 1,
+                HEIGHT - 65 + paddle_height / 2 - 54 / 2 + 54,
+            ],
+            wall_width,
+        )
 
-        pygame.draw.line(screen, PINK, [(wall_width / 2) - 1, 212.5], [(wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap], wall_width)
-        pygame.draw.line(screen, PINK, [(WIDTH - wall_width / 2) - 1, 212.5], [(WIDTH - wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap], wall_width)
+        pygame.draw.line(
+            screen,
+            PINK,
+            [(wall_width / 2) - 1, 212.5],
+            [(wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            PINK,
+            [(WIDTH - wall_width / 2) - 1, 212.5],
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap],
+            wall_width,
+        )
 
-        pygame.draw.line(screen, ORANGE, [(wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap], [(wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap], wall_width)
-        pygame.draw.line(screen, ORANGE, [(WIDTH - wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap], [(WIDTH - wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap], wall_width)
+        pygame.draw.line(
+            screen,
+            ORANGE,
+            [(wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap],
+            [(wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            ORANGE,
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 2 * brick_height + 2 * y_gap],
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap],
+            wall_width,
+        )
 
-        pygame.draw.line(screen, CYAN, [(wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap], [(wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap], wall_width)
-        pygame.draw.line(screen, CYAN, [(WIDTH - wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap], [(WIDTH - wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap], wall_width)
+        pygame.draw.line(
+            screen,
+            CYAN,
+            [(wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap],
+            [(wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            CYAN,
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 4 * brick_height + 4 * y_gap],
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap],
+            wall_width,
+        )
 
-        pygame.draw.line(screen, YELLOW, [(wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap], [(wall_width / 2) - 1, 212.5 + 8 * brick_height + 8 * y_gap], wall_width)
-        pygame.draw.line(screen, YELLOW, [(WIDTH - wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap], [(WIDTH - wall_width / 2) - 1, 212.5 + 8 * brick_height + 8 * y_gap], wall_width)
+        pygame.draw.line(
+            screen,
+            YELLOW,
+            [(wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap],
+            [(wall_width / 2) - 1, 212.5 + 8 * brick_height + 8 * y_gap],
+            wall_width,
+        )
+        pygame.draw.line(
+            screen,
+            YELLOW,
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 6 * brick_height + 6 * y_gap],
+            [(WIDTH - wall_width / 2) - 1, 212.5 + 8 * brick_height + 8 * y_gap],
+            wall_width,
+        )
 
-        font = pygame.font.Font('text_style/DSEG14Classic-Bold.ttf', 70)
+        font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
         text = font.render(str(f"{score:03}"), 1, WHITE)
         screen.blit(text, (80, 120))
-        text = font.render('ball: '+str(balls), 1, WHITE)
+        text = font.render("ball: " + str(balls), 1, WHITE)
         screen.blit(text, (520, 41))
-        text = font.render('000', 1, WHITE)
+        text = font.render("000", 1, WHITE)
         screen.blit(text, (580, 120))
-        text = font.render('Level: 1', 1, WHITE)
+        text = font.render("Level: 1", 1, WHITE)
         screen.blit(text, (20, 40))
 
         all_sprites_list.draw(screen)
@@ -351,5 +462,7 @@ def main(score, balls):
 
     pygame.quit()
 
+
 # Run the main menu at the start of the program
-main_menu()
+if __name__ == "__main__":
+    main_menu()
