@@ -220,6 +220,36 @@ def draw_text(text, font, color, surface, x, y):
 
 font = pygame.font.Font(None, 36)
 
+# Function to display Game Over Screen
+def game_over_screen():
+    screen.blit(menu_background, (75, 0))
+    draw_text("GAME OVER", font, WHITE, screen, WIDTH // 2, HEIGHT // 4)
+    draw_text("1. Retry", font, WHITE, screen, WIDTH // 2, HEIGHT // 2 - 20)
+    draw_text("2. Main Menu", font, WHITE, screen, WIDTH // 2, HEIGHT // 2 + 20)
+    draw_text("3. Exit", font, WHITE, screen, WIDTH // 2, HEIGHT // 2 + 50)
+    pygame.display.flip()
+
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                # Restarts the game with the initial score and balls with key 1
+                if event.key == pygame.K_1:
+                    waiting = False
+                    main(0, 1)  
+                # Returns player to main menu with key 2
+                elif event.key == pygame.K_2:
+                    waiting = False
+                    main_menu()
+                # Exits game with key 3
+                elif event.key == pygame.K_3:
+                    pygame.quit()
+                    sys.exit()
+
 
 # Main Menu
 def main_menu():
@@ -306,6 +336,8 @@ def main(score, balls):
                 screen.blit(text, text_rect)
                 pygame.display.update()
                 pygame.time.wait(2000)
+                #Display Game Over Screen
+                game_over_screen()
                 run = False
 
         if pygame.sprite.collide_mask(ball, paddle):
