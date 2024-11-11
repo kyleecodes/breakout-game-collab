@@ -2,7 +2,7 @@ import unittest
 
 import pygame
 
-from firsttrybreakout1.firsttrybreakout1 import (
+from firsttrybreakout1 import (
     BLUE,
     HEIGHT,
     PINK,

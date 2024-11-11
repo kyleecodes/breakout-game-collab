@@ -42,12 +42,12 @@ paddle_height = 20
 all_sprites_list = pygame.sprite.Group()
 
 # Load images, sounds, and music
-menu_background = pygame.image.load("starmenu.jpg")  # Background image for menu
-menu_music = "Cocoon.mp3"  # Music for menu
-game_music = "GenerousPalmstroke.wav"  # Music for in-game
-brick_sound = pygame.mixer.Sound("sounds/brick.wav")  # Sound for brick hits
-paddle_sound = pygame.mixer.Sound("sounds/paddle.wav")  # Sound for ball hitting paddle
-wall_sound = pygame.mixer.Sound("sounds/wall.wav")  # Sound for ball hitting walls
+menu_background = pygame.image.load("../assets/images/starmenu.jpg")  # Background image for menu
+menu_music = "../sounds/Cocoon.mp3"  # Music for menu
+game_music = "../sounds/GenerousPalmstroke.wav"  # Music for in-game
+brick_sound = pygame.mixer.Sound("../sounds/brick.wav")  # Sound for brick hits
+paddle_sound = pygame.mixer.Sound("../sounds/paddle.wav")  # Sound for ball hitting paddle
+wall_sound = pygame.mixer.Sound("../sounds/wall.wav")  # Sound for ball hitting walls
 
 
 # Brick class to create and draw bricks
@@ -300,7 +300,7 @@ def main(score, balls):
             ball.velocity[1] = ball.velocity[1]
             balls += 1
             if balls == 4:
-                font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
+                font = pygame.font.Font("../yle/DSEG14Classic-Bold.ttf", 70)
                 text = font.render("GAME OVER", 1, WHITE)
                 text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
                 screen.blit(text, text_rect)
@@ -337,7 +337,7 @@ def main(score, balls):
                 score += 7
                 brick.kill()
             if len(all_bricks) == 0:
-                font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
+                font = pygame.font.Font("../assets/text_style/DSEG14Classic-Bold.ttf", 70)
                 text = font.render("SCREEN CLEARED", 1, WHITE)
                 text_rect = text.get_rect(center=(WIDTH / 2, HEIGHT / 2))
                 all_sprites_list.add(ball)
@@ -444,7 +444,7 @@ def main(score, balls):
             wall_width,
         )
 
-        font = pygame.font.Font("text_style/DSEG14Classic-Bold.ttf", 70)
+        font = pygame.font.Font("../assets/text_style/DSEG14Classic-Bold.ttf", 70)
         text = font.render(str(f"{score:03}"), 1, WHITE)
         screen.blit(text, (80, 120))
         text = font.render("ball: " + str(balls), 1, WHITE)
